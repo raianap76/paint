@@ -1,75 +1,47 @@
 package controller;
 
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Vector;
 
 import model.AbstractFigura;
 import model.Ponto;
-import model.Reta;
 import view.Janela.MeuJPanel;
 
-public class ControllerPlotar implements MouseListener {
+abstract public class ControllerPlotar implements MouseListener,ActionListener {
 	
-	private MeuJPanel jpanel; 
-	private AbstractFigura figura;
-	private int figure;
+	protected MeuJPanel jpanel; 
+	protected AbstractFigura figura;
+	protected int click = 0;
+	protected Vector<Ponto> pontos;
 	
-
-	private int click = 0;
-	
-	private Vector<Ponto> pontos;
-	
-//	private Vector<AFigure> figuras;
-	
-	public ControllerPlotar() {
-//		figuras = new Vector<AFigure>();
+	public ControllerPlotar(Container conteiner,MeuJPanel jpanel) {
+		conteiner.addMouseListener(this);
+		this.jpanel = jpanel;
 		pontos = new Vector<Ponto>();
-	}
-
-	public void setFigure(int wFigure ) {
-		this.figure = figure;
 	}
 	
 	public void setJPanel(MeuJPanel jpanel){
 		this.jpanel = jpanel;
 	}
-	
-	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		if(figure == 0) {
-			pontos.add(new Ponto(e.getX(),e.getY()));
-			if(click != 0) {
-				figura = new Reta(pontos.get(0),pontos.get(1));
-				figura.torneSeVisivel(jpanel);
-				click=0;
-				pontos.removeAllElements();
-			}
-			else if(click ==0)
-					click++;
-		}
 	}
-
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-
 	@Override
-	public void mousePressed(MouseEvent e) {
-		
-		
-//		jpanel.desenhar(1, 1);
-					
+	public void mousePressed(MouseEvent e) {					
 				
 	}
 
@@ -78,5 +50,8 @@ public class ControllerPlotar implements MouseListener {
 		// TODO Auto-generated method stub
 		
 	}
-
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+	}
 }

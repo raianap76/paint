@@ -3,8 +3,6 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 import controller.ControllerPlotar;
+import controller.ControllerRetaBresenham;
 
 public class Janela extends JFrame {
 
@@ -19,8 +18,6 @@ public class Janela extends JFrame {
 //	private JPanel contentPane;
 	
 	private MeuJPanel meuJPanel = new MeuJPanel();
-	private ControllerPlotar controllerPlotar;
-
 	/**
 	 * Create the frame.
 	 */
@@ -28,31 +25,18 @@ public class Janela extends JFrame {
 		
 		super();
 		
-		
 		Container cntForm = this.getContentPane();
 		cntForm.setLayout (new BorderLayout());
-		
-		controllerPlotar = new ControllerPlotar();
-		cntForm.addMouseListener(controllerPlotar);
 		cntForm.add (meuJPanel, BorderLayout.CENTER);
-		controllerPlotar.setJPanel(meuJPanel);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JButton retaBresenham = new JButton("reta bresenham");
+		JButton retaBresenham = new JButton("reta bresenham");	
 		menuBar.add(retaBresenham);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		retaBresenham.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controllerPlotar.setFigure(0);
-				
-			}
-			
-		});
+		
+		retaBresenham.addActionListener(new ControllerRetaBresenham(meuJPanel,cntForm));
 		
 		this.setSize (1024,720);
         this.setVisible (true);
@@ -64,12 +48,9 @@ public class Janela extends JFrame {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-
 		public MeuJPanel() {
-			super();
-			
+			super();	
 		}
-		
 		public void desenhar(int x, int y) {
 			
 			meuJPanel.getGraphics().setColor(Color.BLACK);
