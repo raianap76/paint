@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Vector;
 
-import model.AFigure;
+import model.AbstractFigura;
 import model.Ponto;
 import model.Reta;
 import view.Janela.MeuJPanel;
@@ -12,9 +12,10 @@ import view.Janela.MeuJPanel;
 public class ControllerPlotar implements MouseListener {
 	
 	private MeuJPanel jpanel; 
-	
+	private AbstractFigura figura;
 	private int figure;
 	
+
 	private int click = 0;
 	
 	private Vector<Ponto> pontos;
@@ -41,7 +42,8 @@ public class ControllerPlotar implements MouseListener {
 		if(figure == 0) {
 			pontos.add(new Ponto(e.getX(),e.getY()));
 			if(click != 0) {
-				jpanel.desenhar(pontos.get(0).getX(), pontos.get(0).getY(), pontos.get(1).getX(),pontos.get(1).getY());
+				figura = new Reta(pontos.get(0),pontos.get(1));
+				figura.torneSeVisivel(jpanel);
 				click=0;
 				pontos.removeAllElements();
 			}
@@ -67,9 +69,7 @@ public class ControllerPlotar implements MouseListener {
 		
 		
 //		jpanel.desenhar(1, 1);
-		
-		
-			
+					
 				
 	}
 

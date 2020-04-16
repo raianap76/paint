@@ -2,10 +2,8 @@ package model;
 
 import view.Janela.MeuJPanel;
 
-public class Ponto extends AFigure {
+public class Ponto {
 	int x,y;
-
-	
 	
 	public Ponto(int x, int y) {
 		this.x = x;
@@ -27,17 +25,5 @@ public class Ponto extends AFigure {
 	public void setY(int y) {
 		this.y = y;
 	}
-
-	@Override
-	public void torneSeVisivel(MeuJPanel jpanel) {
-		System.out.println(this.x+","+ this.y);
 		
-		
-		//		jpanel.desenhar(this.x,this.y);
-		
-	}
-	
-	
-	
-	
 }
