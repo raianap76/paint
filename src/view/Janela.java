@@ -3,16 +3,18 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
+import controller.ControllerCircunferencia;
 import controller.ControllerRetaBresenham;
 import controller.ControllerRetaDDA;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class Janela extends JFrame {
 
@@ -34,25 +36,47 @@ public class Janela extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JButton retaBresenham = new JButton("reta bresenham");	
-		menuBar.add(retaBresenham);
+		JButton btnRetaBresenham = new JButton("reta bresenham");	
+		menuBar.add(btnRetaBresenham);
 		
-		JButton retaDDA = new JButton("reta dda");
-		menuBar.add(retaDDA);
+		JButton btnRetaDDA = new JButton("reta dda");
+		menuBar.add(btnRetaDDA);
 		
-
+		JButton btnCircunferencia = new JButton("circunferencia");
+		btnCircunferencia.setMnemonic('o');
+		menuBar.add(btnCircunferencia);
+		
+//		ControllerPlotar controllerPlotar = new ControllerPlotar(meuJPanel);
+//		
+//		btnRetaBresenham.addActionListener(controllerPlotar);
+//		btnRetaDDA.addActionListener(controllerPlotar);
+		
+		
 		ControllerRetaBresenham controllerRetaResenham = new ControllerRetaBresenham(meuJPanel);
 		ControllerRetaDDA controllerRetaDDA = new ControllerRetaDDA(meuJPanel);
-
-		retaBresenham.addActionListener(new ActionListener() {
+		ControllerCircunferencia controllerCircunferencia = new ControllerCircunferencia(meuJPanel);
+		
+		
+		
+		btnCircunferencia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cntForm.removeMouseListener(controllerRetaResenham);
+				cntForm.removeMouseListener(controllerRetaDDA);
+				cntForm.addMouseListener(controllerCircunferencia);
+			}
+		});
+		
+		btnRetaBresenham.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cntForm.removeMouseListener(controllerCircunferencia);
 				cntForm.removeMouseListener(controllerRetaDDA);
 				cntForm.addMouseListener(controllerRetaResenham);
 			}
 		});
 		
-		retaDDA.addActionListener(new ActionListener() {
+		btnRetaDDA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cntForm.removeMouseListener(controllerCircunferencia);
 				cntForm.removeMouseListener(controllerRetaResenham);
 				cntForm.addMouseListener(controllerRetaDDA);
 			}
