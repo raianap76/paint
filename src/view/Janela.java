@@ -9,8 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
-import controller.ControllerPlotar;
 import controller.ControllerRetaBresenham;
+import controller.ControllerRetaDDA;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Janela extends JFrame {
 
@@ -34,9 +36,31 @@ public class Janela extends JFrame {
 		
 		JButton retaBresenham = new JButton("reta bresenham");	
 		menuBar.add(retaBresenham);
+		
+		JButton retaDDA = new JButton("reta dda");
+		menuBar.add(retaDDA);
+		
+
+		ControllerRetaBresenham controllerRetaResenham = new ControllerRetaBresenham(meuJPanel);
+		ControllerRetaDDA controllerRetaDDA = new ControllerRetaDDA(meuJPanel);
+
+		retaBresenham.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cntForm.removeMouseListener(controllerRetaDDA);
+				cntForm.addMouseListener(controllerRetaResenham);
+			}
+		});
+		
+		retaDDA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cntForm.removeMouseListener(controllerRetaResenham);
+				cntForm.addMouseListener(controllerRetaDDA);
+			}
+		});
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		retaBresenham.addActionListener(new ControllerRetaBresenham(meuJPanel,cntForm));
 		
 		this.setSize (1024,720);
         this.setVisible (true);

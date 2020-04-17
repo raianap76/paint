@@ -1,7 +1,5 @@
 package model;
 
-import view.Janela.MeuJPanel;
-
 abstract public class Reta extends AbstractFigura {
 
 	Ponto p1,p2;

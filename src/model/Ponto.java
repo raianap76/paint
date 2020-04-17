@@ -1,7 +1,5 @@
 package model;
 
-import view.Janela.MeuJPanel;
-
 public class Ponto {
 	int x,y;
 	

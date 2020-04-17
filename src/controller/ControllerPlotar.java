@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -18,8 +17,7 @@ abstract public class ControllerPlotar implements MouseListener,ActionListener {
 	protected int click = 0;
 	protected Vector<Ponto> pontos;
 	
-	public ControllerPlotar(Container conteiner,MeuJPanel jpanel) {
-		conteiner.addMouseListener(this);
+	public ControllerPlotar(MeuJPanel jpanel) {
 		this.jpanel = jpanel;
 		pontos = new Vector<Ponto>();
 	}
