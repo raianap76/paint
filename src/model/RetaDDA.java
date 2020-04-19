@@ -12,7 +12,7 @@ public class RetaDDA extends Reta {
 	
 	@Override
 	public void torneSeVisivel(Graphics g) {
-//		System.out.println("Executando dda");
+		System.out.println("Executando dda");
 		dda(g);
 		
 	}

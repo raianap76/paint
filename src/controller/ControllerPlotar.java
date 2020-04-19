@@ -11,7 +11,7 @@ import java.util.Vector;
 import model.AbstractFigura;
 import view.Janela.MeuJPanel;
 
- abstract public class ControllerPlotar implements MouseListener,ActionListener,MouseMotionListener {
+ abstract public class ControllerPlotar implements MouseListener,MouseMotionListener {
 	
 	protected MeuJPanel jpanel; 
 	protected AbstractFigura figura;
@@ -38,7 +38,7 @@ import view.Janela.MeuJPanel;
 	}
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub	
+		repintarTela();
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {					
@@ -50,10 +50,7 @@ import view.Janela.MeuJPanel;
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
+	
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -71,4 +68,16 @@ import view.Janela.MeuJPanel;
         for (int i=0 ; i<figuras.size(); i++)
             figuras.get(i).torneSeVisivel(g);
     }
+	public void repintarTela() {
+
+//        try{
+//            Thread.sleep(1);                 //1000 milliseconds is one second.
+//        } catch(InterruptedException ex) {
+//            Thread.currentThread().interrupt();
+//        }
+//        
+
+        jpanel.resize(jpanel.getHeight()+1, jpanel.getWidth()+1);
+        jpanel.resize(jpanel.getHeight()-1, jpanel.getWidth()-1);
+	}
 }

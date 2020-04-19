@@ -4,9 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,13 +17,13 @@ import javax.swing.JPanel;
 import controller.ControllerCircunferencia;
 import controller.ControllerPlotar;
 import controller.ControllerRetaBresenham;
+//import controller.ControllerRetaDDA;
 import model.AbstractFigura;
-import javax.swing.JMenuBar;
 
-
-public class Janela extends JFrame {
+public class Janela2 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+//	private JPanel contentPane;
 	
 	private MeuJPanel meuJPanel = new MeuJPanel();
 	private Vector<AbstractFigura> figuras = new Vector<AbstractFigura>();
@@ -32,75 +35,75 @@ public class Janela extends JFrame {
 	
 	ControllerRetaBresenham controllerPlotarRetaBresenham;
 	ControllerRetaBresenham controllerPlotarRetaDDA;
-
-
 	/**
 	 * Create the frame.
 	 */
-	public Janela() {
+	public Janela2() {
+		
 		super();
 		Container cntForm;
 		
 		cntForm = this.getContentPane();
 		cntForm.setLayout (new BorderLayout());
-		cntForm.add (meuJPanel,  BorderLayout.CENTER);
 		
-		JMenuBar menuBar = new JMenuBar();
-//		setJMenuBar(menuBar);
+		JPanel     pnlBotoes = new JPanel();
+        GridBagConstraints flwBotoes = new GridBagConstraints(); 
+        
+        pnlBotoes.setLayout (new GridBagLayout());
+        
+        flwBotoes.fill = GridBagConstraints.HORIZONTAL;
+        flwBotoes.gridy = 0;
+        pnlBotoes.add(btnRetaBresenham,flwBotoes);
+        pnlBotoes.add(btnRetaDDA,flwBotoes);
+        pnlBotoes.add(btnCircunferencia,flwBotoes);
+
+        cntForm.add (pnlBotoes,  BorderLayout.NORTH);
+        cntForm.add (meuJPanel,  BorderLayout.CENTER);
+
 		
-		
-		menuBar.add(btnRetaBresenham);
-		menuBar.add(btnRetaDDA);
-		menuBar.add(btnCircunferencia);
-		
-		meuJPanel.add(menuBar);
-		
-//		btnCircunferencia.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				ControllerPlotar controllerPlotarCirc = new ControllerCircunferencia(meuJPanel,figuras);
-//				cntForm.addMouseListener(controllerPlotarCirc);
-//				cntForm.addMouseMotionListener(controllerPlotarCirc);
-//			}
-//		});
+		btnCircunferencia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ControllerPlotar controllerPlotarCirc = new ControllerCircunferencia(meuJPanel,figuras);
+				cntForm.addMouseListener(controllerPlotarCirc);
+				cntForm.addMouseMotionListener(controllerPlotarCirc);
+			}
+		});
 		
         
 		controllerPlotarRetaBresenham = new ControllerRetaBresenham(meuJPanel,figuras);
         btnRetaBresenham.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				controllerPlotarRetaBresenham.repintarTela();
-//				cntForm.removeMouseListener(controllerPlotarRetaDDA);
-//				cntForm.removeMouseMotionListener(controllerPlotarRetaDDA);
+				controllerPlotarRetaBresenham.repintarTela();
+				cntForm.removeMouseListener(controllerPlotarRetaDDA);
+				cntForm.removeMouseMotionListener(controllerPlotarRetaDDA);
 				controllerPlotarRetaBresenham.setNomeClass("bresenham");
-				meuJPanel.removeMouseListener(controllerPlotarRetaDDA);
-				meuJPanel.removeMouseMotionListener(controllerPlotarRetaDDA);
-				meuJPanel.addMouseMotionListener(controllerPlotarRetaBresenham);
-				meuJPanel.addMouseListener(controllerPlotarRetaBresenham);
-//				cntForm.addMouseListener(controllerPlotarRetaBresenham);
-//				cntForm.addMouseMotionListener(controllerPlotarRetaBresenham);
-//				controllerPlotarRetaBresenham.repintarTela();
+				cntForm.addMouseListener(controllerPlotarRetaBresenham);
+				cntForm.addMouseMotionListener(controllerPlotarRetaBresenham);
+				controllerPlotarRetaBresenham.repintarTela();
 			}
 		});
 		
-        controllerPlotarRetaDDA = new ControllerRetaBresenham(meuJPanel,figuras);
 		btnRetaDDA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				cntForm.removeMouseListener(controllerPlotarRetaBresenham);
-//				cntForm.removeMouseMotionListener(controllerPlotarRetaBresenham);
+				cntForm.removeMouseListener(controllerPlotarRetaBresenham);
+				cntForm.removeMouseMotionListener(controllerPlotarRetaBresenham);
+				controllerPlotarRetaDDA = new ControllerRetaBresenham(meuJPanel,figuras);
 				controllerPlotarRetaDDA.setNomeClass("dda");
-				meuJPanel.removeMouseListener(controllerPlotarRetaBresenham);
-				meuJPanel.removeMouseMotionListener(controllerPlotarRetaBresenham);
-				meuJPanel.addMouseMotionListener(controllerPlotarRetaDDA);
-				meuJPanel.addMouseListener(controllerPlotarRetaDDA);
-//				cntForm.addMouseListener(controllerPlotarRetaDDA);
-//				cntForm.addMouseMotionListener(controllerPlotarRetaDDA);
+				cntForm.addMouseListener(controllerPlotarRetaDDA);
+				cntForm.addMouseMotionListener(controllerPlotarRetaDDA);
 //				meuJPanel.repintarTela();
 			}
 		});
 		
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 		this.setSize (1024,768);
         this.setVisible (true);
-		
 	}
+	
+
 
 	public class MeuJPanel extends JPanel {
 
@@ -136,4 +139,5 @@ public class Janela extends JFrame {
 		}
 		
 	}
+	
 }

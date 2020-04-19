@@ -27,8 +27,10 @@ public class ControllerCircunferencia extends ControllerPlotar {
 			int raio = calcularRaio(pontos);
 			figura =  new Circunferencia(pontos.get(0),raio);
 			figura.torneSeVisivel(jpanel.getGraphics());
+			figuras.add(figura);
 			click=0;
 			pontos.removeAllElements();
+			jpanel.paintT(jpanel.getGraphics());
 		}
 		else if(click ==0)
 				click++;
@@ -52,7 +54,4 @@ public class ControllerCircunferencia extends ControllerPlotar {
 		return (int) Math.sqrt( Math.pow(x - xc,2) + Math.pow(y - yc,2) ) ;
 	}
 	
-public void actionPerformed(ActionEvent e) {
-		
-	}
 }

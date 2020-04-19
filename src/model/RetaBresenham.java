@@ -12,7 +12,7 @@ public class RetaBresenham extends Reta{
 	
 	@Override
 	public void torneSeVisivel(Graphics g) {
-//		System.out.println("executando bresenham");
+		System.out.println("executando bresenham");
 		bresenham(g);
 		
 	}
