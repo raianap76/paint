@@ -2,8 +2,6 @@ package model;
 
 import java.awt.Graphics;
 
-import view.Janela.MeuJPanel;
-
 public class RetaBresenham extends Reta{
 	
 	public RetaBresenham() {}

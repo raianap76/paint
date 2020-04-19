@@ -2,8 +2,6 @@ package model;
 
 import java.awt.Graphics;
 
-import view.Janela.MeuJPanel;
-
 public class RetaDDA extends Reta {
 
 	public RetaDDA() {}

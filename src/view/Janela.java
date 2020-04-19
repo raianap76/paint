@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import controller.ControllerCircunferencia;
 import controller.ControllerPlotar;
 import controller.ControllerRetaBresenham;
 //import controller.ControllerRetaDDA;
@@ -23,10 +24,12 @@ public class Janela extends JFrame {
 //	private JPanel contentPane;
 	
 	private MeuJPanel meuJPanel = new MeuJPanel();
+	private Vector<AbstractFigura> figuras = new Vector<AbstractFigura>();
 	
 	JButton btnRetaBresenham = new JButton("reta bresenham");
 	JButton btnRetaDDA = new JButton("reta dda");
-	private Vector<AbstractFigura> figuras = new Vector<AbstractFigura>();
+	JButton btnCircunferencia = new JButton("circunferencia");
+	
 	
 	/**
 	 * Create the frame.
@@ -48,6 +51,7 @@ public class Janela extends JFrame {
         flwBotoes.gridy = 0;
         pnlBotoes.add(btnRetaBresenham,flwBotoes);
         pnlBotoes.add(btnRetaDDA,flwBotoes);
+        pnlBotoes.add(btnCircunferencia,flwBotoes);
 
 //        ControllerPlotar merda = new ControllerRetaBresenham(meuJPanel,figuras,"RetaBresenham");
         cntForm.add (pnlBotoes,  BorderLayout.NORTH);
@@ -56,9 +60,12 @@ public class Janela extends JFrame {
         
         
         ControllerPlotar controllerPlotarReta = new ControllerRetaBresenham(meuJPanel,figuras);
+        ControllerPlotar controllerPlotarCirc = new ControllerCircunferencia(meuJPanel,figuras);
         
-        btnRetaBresenham.addActionListener(controllerPlotarReta);
-        btnRetaDDA.addActionListener(controllerPlotarReta);
+//        btnRetaBresenham.addActionListener(controllerPlotarReta);
+//        btnRetaDDA.addActionListener(controllerPlotarReta);
+        btnCircunferencia.addActionListener(controllerPlotarCirc);
+        btnCircunferencia.addMouseListener(controllerPlotarCirc);
         //        meuJPanel.
         
 		
@@ -144,6 +151,7 @@ public class Janela extends JFrame {
 	            figuras.get(i).torneSeVisivel(g);
 	    }
 		
+		@SuppressWarnings("deprecation")
 		public void repintarTela(int x) {
 
 	        try{
@@ -157,6 +165,7 @@ public class Janela extends JFrame {
 	        meuJPanel.resize(meuJPanel.getHeight()-1, meuJPanel.getWidth()-1);
 		}
 		
+		@SuppressWarnings("deprecation")
 		public void repintarTela() {
 
 	        try{

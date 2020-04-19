@@ -16,7 +16,7 @@ import view.Janela.MeuJPanel;
 public class ControllerRetaBresenham extends ControllerPlotar {
 	
 	Ponto p1,p2;
-	Boolean inicioReta = true,desenhar,fimReta=false;
+	Boolean inicioReta,desenhar,fimReta;
 	String nomeClass;
 	Reta reta;
 	
@@ -28,7 +28,7 @@ public class ControllerRetaBresenham extends ControllerPlotar {
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-//		System.out.println("click controllerRetaBresenham");
+		System.out.println("click controllerRetaBresenham");
 		
 ////		pontos.add(new Ponto(e.getX(),e.getY()));
 //		if(click != 0) {
@@ -44,7 +44,7 @@ public class ControllerRetaBresenham extends ControllerPlotar {
 //	
 	@Override
 	public void mousePressed(MouseEvent e) {
-//		System.out.println("merda");
+		System.out.println("pressed bresenham");
 		if(inicioReta) 
 		{
 			System.out.println("inicio");
@@ -100,8 +100,8 @@ public class ControllerRetaBresenham extends ControllerPlotar {
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		  jpanel.setFocusable(true);
-          jpanel.requestFocusInWindow();
+		jpanel.setFocusable(true);
+        jpanel.requestFocusInWindow();
 		
 		if(desenhar) 
 		{
@@ -134,8 +134,6 @@ public class ControllerRetaBresenham extends ControllerPlotar {
 			System.out.println(nomeClass);
 			reta = new RetaDDA(); 
 		}
-			
-		
 		
 	}
 	
