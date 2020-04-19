@@ -1,25 +1,27 @@
 package controller;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.Vector;
 
 import model.AbstractFigura;
-import model.Ponto;
 import view.Janela.MeuJPanel;
 
-abstract public class ControllerPlotar implements MouseListener,ActionListener {
+ abstract public class ControllerPlotar implements MouseListener,ActionListener,MouseMotionListener {
 	
 	protected MeuJPanel jpanel; 
 	protected AbstractFigura figura;
 	protected int click = 0;
-	protected Vector<Ponto> pontos;
+	protected Vector<AbstractFigura> figuras;
 	
-	public ControllerPlotar(MeuJPanel jpanel) {
+	public ControllerPlotar(MeuJPanel jpanel,Vector<AbstractFigura> figuras) {
 		this.jpanel = jpanel;
-		pontos = new Vector<Ponto>();
+		this.figuras = figuras;
+		
 	}
 	
 	public void setJPanel(MeuJPanel jpanel){
@@ -52,4 +54,21 @@ abstract public class ControllerPlotar implements MouseListener,ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	protected void paint (Graphics g) {
+        for (int i=0 ; i<figuras.size(); i++)
+            figuras.get(i).torneSeVisivel(g);
+    }
 }
