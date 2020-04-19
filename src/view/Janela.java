@@ -25,13 +25,15 @@ public class Janela extends JFrame {
 	private MeuJPanel meuJPanel = new MeuJPanel();
 	private Vector<AbstractFigura> figuras = new Vector<AbstractFigura>();
 	
-	JButton btnRetaBresenham = new JButton("reta bresenham");
-	JButton btnRetaDDA = new JButton("reta dda");
-	JButton btnCircunferencia = new JButton("circunferencia");
-	
+	private final JButton btnRetaBresenham = new JButton("reta bresenham");
+	private final JButton btnRetaDDA = new JButton("reta dda");
+	private final JButton btnCircunferencia = new JButton("circunferencia");
+	private final JButton btnRetangulo = new JButton("retangulo");
 	
 	ControllerRetaBresenham controllerPlotarRetaBresenham;
 	ControllerRetaBresenham controllerPlotarRetaDDA;
+	ControllerRetaBresenham controllerRetangulo;
+	
 
 
 	/**
@@ -46,14 +48,28 @@ public class Janela extends JFrame {
 		cntForm.add (meuJPanel,  BorderLayout.CENTER);
 		
 		JMenuBar menuBar = new JMenuBar();
-//		setJMenuBar(menuBar);
+		setJMenuBar(menuBar);
 		
 		
 		menuBar.add(btnRetaBresenham);
 		menuBar.add(btnRetaDDA);
 		menuBar.add(btnCircunferencia);
+		menuBar.add(btnRetangulo);
 		
-		meuJPanel.add(menuBar);
+		
+		ControllerRetaBresenham controllerRetangulo = new ControllerRetaBresenham(meuJPanel,figuras);
+		btnRetangulo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				removeAllListener();
+				controllerRetangulo.setNomeClass("retangulo");
+				meuJPanel.addMouseMotionListener(controllerRetangulo);
+				meuJPanel.addMouseListener(controllerRetangulo);
+			}
+		});
+		
+		
+		
+//		meuJPanel.add(menuBar);
 		
 //		btnCircunferencia.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent arg0) {
@@ -67,38 +83,36 @@ public class Janela extends JFrame {
 		controllerPlotarRetaBresenham = new ControllerRetaBresenham(meuJPanel,figuras);
         btnRetaBresenham.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				controllerPlotarRetaBresenham.repintarTela();
-//				cntForm.removeMouseListener(controllerPlotarRetaDDA);
-//				cntForm.removeMouseMotionListener(controllerPlotarRetaDDA);
+				removeAllListener();
 				controllerPlotarRetaBresenham.setNomeClass("bresenham");
-				meuJPanel.removeMouseListener(controllerPlotarRetaDDA);
-				meuJPanel.removeMouseMotionListener(controllerPlotarRetaDDA);
 				meuJPanel.addMouseMotionListener(controllerPlotarRetaBresenham);
 				meuJPanel.addMouseListener(controllerPlotarRetaBresenham);
-//				cntForm.addMouseListener(controllerPlotarRetaBresenham);
-//				cntForm.addMouseMotionListener(controllerPlotarRetaBresenham);
-//				controllerPlotarRetaBresenham.repintarTela();
+
 			}
 		});
 		
         controllerPlotarRetaDDA = new ControllerRetaBresenham(meuJPanel,figuras);
 		btnRetaDDA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				cntForm.removeMouseListener(controllerPlotarRetaBresenham);
-//				cntForm.removeMouseMotionListener(controllerPlotarRetaBresenham);
+				removeAllListener();
 				controllerPlotarRetaDDA.setNomeClass("dda");
-				meuJPanel.removeMouseListener(controllerPlotarRetaBresenham);
-				meuJPanel.removeMouseMotionListener(controllerPlotarRetaBresenham);
 				meuJPanel.addMouseMotionListener(controllerPlotarRetaDDA);
-				meuJPanel.addMouseListener(controllerPlotarRetaDDA);
-//				cntForm.addMouseListener(controllerPlotarRetaDDA);
-//				cntForm.addMouseMotionListener(controllerPlotarRetaDDA);
-//				meuJPanel.repintarTela();
-			}
+				meuJPanel.addMouseListener(controllerPlotarRetaDDA);}
 		});
 		
 		this.setSize (1024,768);
         this.setVisible (true);
+		
+	}
+	
+	public void removeAllListener() {
+		
+		meuJPanel.removeMouseListener(controllerRetangulo);
+		meuJPanel.removeMouseMotionListener(controllerRetangulo);
+		meuJPanel.removeMouseListener(controllerPlotarRetaBresenham);
+		meuJPanel.removeMouseMotionListener(controllerPlotarRetaBresenham);
+		meuJPanel.removeMouseListener(controllerPlotarRetaDDA);
+		meuJPanel.removeMouseMotionListener(controllerPlotarRetaDDA);
 		
 	}
 

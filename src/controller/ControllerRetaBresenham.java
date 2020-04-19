@@ -1,15 +1,14 @@
 package controller;
 
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import model.AbstractFigura;
 import model.Ponto;
-import model.Reta;
 import model.RetaBresenham;
 import model.RetaDDA;
+import model.Retangulo;
 import view.Janela.MeuJPanel;
 
 
@@ -18,7 +17,7 @@ public class ControllerRetaBresenham extends ControllerPlotar {
 	Ponto p1,p2;
 	Boolean inicioReta = true,desenhar,fimReta=false;
 	String nomeClass;
-	Reta reta;
+	AbstractFigura figura;
 	
 	public void setNomeClass(String nomeClass) {
 		this.nomeClass = nomeClass;
@@ -48,18 +47,23 @@ public class ControllerRetaBresenham extends ControllerPlotar {
 			inicioReta = true;
 			fimReta = false;
 			desenhar = false;
-//			repintarTela();
 			p2 = new Ponto(e.getX(),e.getY());
 				
 			if(nomeClass.equals("bresenham"))
-				reta = new RetaBresenham(p1,p2);
+				figura = new RetaBresenham(p1,p2);
 			else
-				reta = new RetaDDA(p1,p2);
+				if(nomeClass.equals("dda"))
+					figura = new RetaDDA(p1,p2);
+				else 
+				{
+					figura = new Retangulo(p1,p2);
+				}
+					
 			
-			figuras.add(reta);
+			figuras.add(figura);
 			figuras.get(figuras.size()-1).torneSeVisivel(jpanel.getGraphics());
 			p1 = p2 = null;
-			jpanel.paintT(jpanel.getGraphics());
+			paint(jpanel.getGraphics());
 		
 		}
 	}
@@ -73,8 +77,8 @@ public class ControllerRetaBresenham extends ControllerPlotar {
 		{
 			repintarTela();
 			fimReta=true;
-			Graphics g = jpanel.getGraphics();
-			g.drawLine(e.getX(),e.getY(), p1.getX(), p1.getY());
+//			Graphics g = jpanel.getGraphics();
+//			g.drawLine(e.getX(),e.getY(), p1.getX(), p1.getY());
 			
 		}
 	}
