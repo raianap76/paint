@@ -3,11 +3,14 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -20,6 +23,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.ControllerPlotar;
 import model.AbstractFigura;
+import model.Ponto;
+import model.Retangulo;
 
 
 public class Janela extends JFrame {
@@ -29,6 +34,7 @@ public class Janela extends JFrame {
 	private MeuJPanel meuJPanel = new MeuJPanel();
 	private Vector<AbstractFigura> figuras = new Vector<AbstractFigura>();
 	
+	private final JButton btnPonto = new JButton("ponto");
 	private final JButton btnRetaBresenham = new JButton("reta bresenham");
 	private final JButton btnRetaDDA = new JButton("reta dda");
 	private final JButton btnCircunferencia = new JButton("circunferencia");
@@ -39,6 +45,7 @@ public class Janela extends JFrame {
 	ControllerPlotar controllerPlotarRetaDDA;
 	ControllerPlotar controllerRetangulo;
 	ControllerPlotar controllerPlotarCircunferencia;
+	ControllerPlotar ControllerPonto;
 	
 	
 
@@ -56,18 +63,28 @@ public class Janela extends JFrame {
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
-		
+		menuBar.add(btnPonto);
 		menuBar.add(btnRetaBresenham);
 		menuBar.add(btnRetaDDA);
 		menuBar.add(btnCircunferencia);
 		menuBar.add(btnRetangulo);
-		
 		menuBar.add(btnSalvar);
+		
 		
 		
 		btnSalvar.addActionListener(new Salvar());
 		
+		
+		btnPonto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				removeAllListener();
+				ControllerPonto = new ControllerPlotar(meuJPanel,figuras);
+				ControllerPonto.setNomeClass("ponto");
+				meuJPanel.addMouseMotionListener(ControllerPonto);
+				meuJPanel.addMouseListener(ControllerPonto);
+
+			}
+		});
 		
 		btnRetangulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -230,6 +247,4 @@ public class Janela extends JFrame {
                
         }
     }
-	
-	
 }

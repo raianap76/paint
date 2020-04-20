@@ -1,6 +1,8 @@
 package model;
 
-public class Ponto {
+import java.awt.Graphics;
+
+public class Ponto extends AbstractFigura{
 	int x,y;
 	
 	public Ponto(int x, int y) {
@@ -22,6 +24,11 @@ public class Ponto {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	@Override
+	public void torneSeVisivel(Graphics g) {
+		g.drawLine (this.x-1,this.y-1,this.x,this.y);
 	}
 		
 }

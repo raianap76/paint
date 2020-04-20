@@ -20,9 +20,10 @@ public class ControllerPlotar implements MouseListener,MouseMotionListener {
 	
 	private MeuJPanel jpanel; 
 	private Vector<AbstractFigura> figuras;
+	private Vector<AbstractFigura> aux;
 	
 	Ponto p1,p2;
-	Boolean inicioReta = true,desenhar,fimReta=false;
+	Boolean inicioReta = true,desenhar = false,fimReta=false;
 	String nomeClass;
 	AbstractFigura figura;
 	
@@ -43,14 +44,13 @@ public class ControllerPlotar implements MouseListener,MouseMotionListener {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println("pressed bresenham");
-		if(inicioReta) 
-		{
-			System.out.println("inicio");
-			inicioReta = false;
-			desenhar = true;
-			p1 = new Ponto(e.getX(),e.getY());
-		} 
+			if(inicioReta) 
+			{
+				inicioReta = false;
+				desenhar = true;
+				p1 = new Ponto(e.getX(),e.getY());
+			}
+		 
 	}
 	
 	@Override
@@ -85,25 +85,27 @@ public class ControllerPlotar implements MouseListener,MouseMotionListener {
 	public void mouseDragged(MouseEvent e) {
 		jpanel.setFocusable(true);
         jpanel.requestFocusInWindow();
-		
-		if(desenhar) 
-		{
-			repintarTela();
-			fimReta=true;
-			
-			if(nomeClass.equals("bresenham"))
-				figura = new RetaBresenham(new Ponto(e.getX(),e.getY()),p1);
-			else
-				if(nomeClass.equals("dda"))
-					figura = new RetaDDA(new Ponto(e.getX(),e.getY()),p1);
-				else if(nomeClass.equals("retangulo"))
-					figura = new Retangulo(new Ponto(e.getX(),e.getY()),p1);
+        
+        if(nomeClass.equals("ponto")) {
+        	figuras.add(new Ponto(e.getX(),e.getY()));
+			figuras.get(figuras.size()-1).torneSeVisivel(jpanel.getGraphics());
+        }
+        else
+			if(desenhar) 
+			{
+				repintarTela();
+				fimReta=true;
+				
+				if(nomeClass.equals("bresenham"))
+					figura = new RetaBresenham(new Ponto(e.getX(),e.getY()),p1);
 				else
-					figura = new Circunferencia(new Ponto(e.getX(),e.getY()),p1); 
-			figura.torneSeVisivel(jpanel.getGraphics());
-//			Graphics g = jpanel.getGraphics();
-//			g.drawLine(e.getX(),e.getY(), p1.getX(), p1.getY());
-			
+					if(nomeClass.equals("dda"))
+						figura = new RetaDDA(new Ponto(e.getX(),e.getY()),p1);
+					else if(nomeClass.equals("retangulo"))
+						figura = new Retangulo(new Ponto(e.getX(),e.getY()),p1);
+					else
+						figura = new Circunferencia(new Ponto(e.getX(),e.getY()),p1); 
+				figura.torneSeVisivel(jpanel.getGraphics());
 		}
 	}
 	protected void paint (Graphics g) {
