@@ -30,6 +30,17 @@ public class Circunferencia extends  AbstractFigura {
 		
 	}
 	
+	public String toString() {
+		String str ="c:" +
+	               this.origem.getX() +
+	               ":" +
+	               this.origem.getY() +
+	               ":" +
+	               raio;
+		 
+		 return str;
+	}
+	
 	@Override
 	public void torneSeVisivel(Graphics g) {
 		bresenhamCircunferencia(g);

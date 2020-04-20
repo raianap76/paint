@@ -3,7 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -23,7 +23,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.ControllerPlotar;
 import model.AbstractFigura;
+import model.Circunferencia;
 import model.Ponto;
+import model.RetaBresenham;
+import model.RetaDDA;
 import model.Retangulo;
 
 
@@ -40,12 +43,14 @@ public class Janela extends JFrame {
 	private final JButton btnCircunferencia = new JButton("circunferencia");
 	private final JButton btnRetangulo = new JButton("retangulo");
 	private final JButton btnSalvar = new JButton("salvar");
+	private final JButton btnAbrir = new JButton("abrir");
 	
 	ControllerPlotar controllerPlotarRetaBresenham;
 	ControllerPlotar controllerPlotarRetaDDA;
 	ControllerPlotar controllerRetangulo;
 	ControllerPlotar controllerPlotarCircunferencia;
 	ControllerPlotar ControllerPonto;
+	
 	
 	
 
@@ -68,10 +73,10 @@ public class Janela extends JFrame {
 		menuBar.add(btnRetaDDA);
 		menuBar.add(btnCircunferencia);
 		menuBar.add(btnRetangulo);
-		menuBar.add(btnSalvar);
+		menuBar.add(btnAbrir);
+		menuBar.add(btnSalvar);	
 		
-		
-		
+		btnAbrir.addActionListener(new Abrir());
 		btnSalvar.addActionListener(new Salvar());
 		
 		
@@ -174,8 +179,24 @@ public class Janela extends JFrame {
 			meuJPanel.getGraphics().setColor(Color.BLACK);
 			meuJPanel.getGraphics().drawLine(x, y, x, y);
 		}
+		
 
 	}
+	
+
+	public void repintarTela() {
+
+        try{
+            Thread.sleep(10);                 //1000 milliseconds is one second.
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        
+
+		meuJPanel.resize(meuJPanel.getHeight()+1, meuJPanel.getWidth()+1);
+		meuJPanel.resize(meuJPanel.getHeight()-1, meuJPanel.getWidth()-1);
+	}
+
 	
 	private class FecharTela extends WindowAdapter {
         public void windowClosing (WindowEvent e) {
@@ -247,4 +268,80 @@ public class Janela extends JFrame {
                
         }
     }
+	
+	
+	private class Abrir implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            String p = "p";
+            String b = "b";
+            String c = "c";
+            String d = "d";
+            String r = "r";
+ 
+            boolean aberto = false;
+            JFileChooser j= new JFileChooser();
+            j.setFileFilter(new FileNameExtensionFilter("Paint Files", "paint", ".paint"));    
+    	        j.setAcceptAllFileFilterUsed(false);   
+            int returnVal = j.showOpenDialog(Janela.this);
+            String arquivo = j.getSelectedFile().getAbsolutePath();
+            if(!arquivo.endsWith(".paint"))
+                                    arquivo+=".paint";
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                try {
+                    Scanner scanner = new Scanner(new FileReader(arquivo)).useDelimiter("\\s*:\\s*|\\s*\n\\s*");
+                    figuras.clear();
+                    repintarTela();
+                    while (scanner.hasNext()) {
+                        String tipo = scanner.next();
+                        System.out.println("inicio");
+                        System.out.println(tipo);
+                        if(p.equals(tipo)){
+                            System.out.println("entrou ponto");
+                            figuras.add (new Ponto (Integer.parseInt(scanner.next()), 
+                                                    Integer.parseInt(scanner.next())));
+                            figuras.get(figuras.size()-1).torneSeVisivel(meuJPanel.getGraphics());
+                            scanner.next();
+                        }
+                        if(b.equals(tipo)){
+                            System.out.println("entrou bresenham");
+                            Ponto p1 = new Ponto(Integer.parseInt(scanner.next()),Integer.parseInt(scanner.next()));
+                            Ponto p2 = new Ponto(Integer.parseInt(scanner.next()),Integer.parseInt(scanner.next()));
+                            figuras.add (new RetaBresenham(p1,p2));
+                            figuras.get(figuras.size()-1).torneSeVisivel(meuJPanel.getGraphics());
+                           
+                        }
+                        if(d.equals(tipo)){
+                            System.out.println("entrou dda");
+                            Ponto p1 = new Ponto(Integer.parseInt(scanner.next()),Integer.parseInt(scanner.next()));
+                            Ponto p2 = new Ponto(Integer.parseInt(scanner.next()),Integer.parseInt(scanner.next()));
+                            figuras.add (new RetaDDA(p1,p2));
+                            figuras.get(figuras.size()-1).torneSeVisivel(meuJPanel.getGraphics());
+                           
+                        }
+                        if(c.equals(tipo)){
+                            System.out.println("entrou circunferencia");
+                            Ponto p1 = new Ponto(Integer.parseInt(scanner.next()),Integer.parseInt(scanner.next()));
+                            int raio = Integer.parseInt(scanner.next());
+                            figuras.add (new Circunferencia(p1,raio));
+                            figuras.get(figuras.size()-1).torneSeVisivel(meuJPanel.getGraphics());
+                           
+                        }
+                        if(r.equals(tipo)){
+                            System.out.println("entrou retangulo");
+                            Ponto p1 = new Ponto(Integer.parseInt(scanner.next()),Integer.parseInt(scanner.next()));
+                            Ponto p2 = new Ponto(Integer.parseInt(scanner.next()),Integer.parseInt(scanner.next()));
+                            Ponto p3 = new Ponto(Integer.parseInt(scanner.next()),Integer.parseInt(scanner.next()));
+                            Ponto p4 = new Ponto(Integer.parseInt(scanner.next()),Integer.parseInt(scanner.next()));
+                            figuras.add (new Retangulo(p1,p2,p3,p4));
+                            figuras.get(figuras.size()-1).torneSeVisivel(meuJPanel.getGraphics());
+                           
+                        }
+                        System.out.println("fim");
+                    }
+                }catch (Exception ex) {
+                    ex.printStackTrace();
+               }
+            }
+        }
+	}
 }

@@ -25,6 +25,17 @@ public class Ponto extends AbstractFigura{
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	@Override
+	public String toString() {
+		
+		String str ="p:" +
+	               this.x +
+	               ":" +
+	               this.y;
+		
+		return str;
+	}
 
 	@Override
 	public void torneSeVisivel(Graphics g) {

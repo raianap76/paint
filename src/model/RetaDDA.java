@@ -16,6 +16,20 @@ public class RetaDDA extends Reta {
 		dda(g);
 		
 	}
+	
+	public String toString() {
+		String str ="d:" +
+	               this.p1.getX() +
+	               ":" +
+	               this.p1.getY() +
+	               ":" +
+	               this.p2.getX() +
+	               ":" +
+	               this.p2.getY();
+		 
+		 return str;
+	}
+	
 	private void dda(Graphics g) {
 		
 		

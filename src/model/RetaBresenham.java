@@ -73,6 +73,18 @@ public class RetaBresenham extends Reta{
 			}
 		}
 	}
-
+	
+	public String toString() {
+		String str ="b:" +
+	               this.p1.getX() +
+	               ":" +
+	               this.p1.getY() +
+	               ":" +
+	               this.p2.getX() +
+	               ":" +
+	               this.p2.getY();
+		 
+		 return str;
+	}
 	
 }
