@@ -6,12 +6,14 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import controller.ControllerRetaBresenham;
-import model.AbstractFigura;
 import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+
+import controller.ControllerPlotar;
+import model.AbstractFigura;
 
 
 public class Janela extends JFrame {
@@ -26,10 +28,10 @@ public class Janela extends JFrame {
 	private final JButton btnCircunferencia = new JButton("circunferencia");
 	private final JButton btnRetangulo = new JButton("retangulo");
 	
-	ControllerRetaBresenham controllerPlotarRetaBresenham;
-	ControllerRetaBresenham controllerPlotarRetaDDA;
-	ControllerRetaBresenham controllerRetangulo;
-	ControllerRetaBresenham controllerPlotarCircunferencia;
+	ControllerPlotar controllerPlotarRetaBresenham;
+	ControllerPlotar controllerPlotarRetaDDA;
+	ControllerPlotar controllerRetangulo;
+	ControllerPlotar controllerPlotarCircunferencia;
 
 
 	/**
@@ -57,7 +59,7 @@ public class Janela extends JFrame {
 		btnRetangulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeAllListener();
-				controllerRetangulo = new ControllerRetaBresenham(meuJPanel,figuras);
+				controllerRetangulo = new ControllerPlotar(meuJPanel,figuras);
 				controllerRetangulo.setNomeClass("retangulo");
 				meuJPanel.addMouseMotionListener(controllerRetangulo);
 				meuJPanel.addMouseListener(controllerRetangulo);
@@ -71,7 +73,7 @@ public class Janela extends JFrame {
 		btnCircunferencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				removeAllListener();
-				controllerPlotarCircunferencia = new ControllerRetaBresenham(meuJPanel,figuras);
+				controllerPlotarCircunferencia = new ControllerPlotar(meuJPanel,figuras);
 				controllerPlotarCircunferencia.setNomeClass("circunferencia");
 				meuJPanel.addMouseListener(controllerPlotarCircunferencia);
 				meuJPanel.addMouseMotionListener(controllerPlotarCircunferencia);
@@ -83,7 +85,7 @@ public class Janela extends JFrame {
         btnRetaBresenham.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeAllListener();
-				controllerPlotarRetaBresenham = new ControllerRetaBresenham(meuJPanel,figuras);
+				controllerPlotarRetaBresenham = new ControllerPlotar(meuJPanel,figuras);
 				controllerPlotarRetaBresenham.setNomeClass("bresenham");
 				meuJPanel.addMouseMotionListener(controllerPlotarRetaBresenham);
 				meuJPanel.addMouseListener(controllerPlotarRetaBresenham);
@@ -95,7 +97,7 @@ public class Janela extends JFrame {
 		btnRetaDDA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeAllListener();
-				controllerPlotarRetaDDA = new ControllerRetaBresenham(meuJPanel,figuras);
+				controllerPlotarRetaDDA = new ControllerPlotar(meuJPanel,figuras);
 				controllerPlotarRetaDDA.setNomeClass("dda");
 				meuJPanel.addMouseMotionListener(controllerPlotarRetaDDA);
 				meuJPanel.addMouseListener(controllerPlotarRetaDDA);}
