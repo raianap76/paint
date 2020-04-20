@@ -54,10 +54,8 @@ public class ControllerRetaBresenham extends ControllerPlotar {
 			else
 				if(nomeClass.equals("dda"))
 					figura = new RetaDDA(p1,p2);
-				else 
-				{
+				else if(nomeClass.equals("retangulo"))
 					figura = new Retangulo(p1,p2);
-				}
 					
 			
 			figuras.add(figura);

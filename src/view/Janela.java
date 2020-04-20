@@ -57,10 +57,11 @@ public class Janela extends JFrame {
 		menuBar.add(btnRetangulo);
 		
 		
-		ControllerRetaBresenham controllerRetangulo = new ControllerRetaBresenham(meuJPanel,figuras);
+		
 		btnRetangulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeAllListener();
+				controllerRetangulo = new ControllerRetaBresenham(meuJPanel,figuras);
 				controllerRetangulo.setNomeClass("retangulo");
 				meuJPanel.addMouseMotionListener(controllerRetangulo);
 				meuJPanel.addMouseListener(controllerRetangulo);
@@ -80,10 +81,11 @@ public class Janela extends JFrame {
 //		});
 		
         
-		controllerPlotarRetaBresenham = new ControllerRetaBresenham(meuJPanel,figuras);
+		
         btnRetaBresenham.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeAllListener();
+				controllerPlotarRetaBresenham = new ControllerRetaBresenham(meuJPanel,figuras);
 				controllerPlotarRetaBresenham.setNomeClass("bresenham");
 				meuJPanel.addMouseMotionListener(controllerPlotarRetaBresenham);
 				meuJPanel.addMouseListener(controllerPlotarRetaBresenham);
@@ -91,10 +93,11 @@ public class Janela extends JFrame {
 			}
 		});
 		
-        controllerPlotarRetaDDA = new ControllerRetaBresenham(meuJPanel,figuras);
+        
 		btnRetaDDA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeAllListener();
+				controllerPlotarRetaDDA = new ControllerRetaBresenham(meuJPanel,figuras);
 				controllerPlotarRetaDDA.setNomeClass("dda");
 				meuJPanel.addMouseMotionListener(controllerPlotarRetaDDA);
 				meuJPanel.addMouseListener(controllerPlotarRetaDDA);}
@@ -107,12 +110,18 @@ public class Janela extends JFrame {
 	
 	public void removeAllListener() {
 		
-		meuJPanel.removeMouseListener(controllerRetangulo);
-		meuJPanel.removeMouseMotionListener(controllerRetangulo);
+		
 		meuJPanel.removeMouseListener(controllerPlotarRetaBresenham);
 		meuJPanel.removeMouseMotionListener(controllerPlotarRetaBresenham);
 		meuJPanel.removeMouseListener(controllerPlotarRetaDDA);
 		meuJPanel.removeMouseMotionListener(controllerPlotarRetaDDA);
+		
+		meuJPanel.removeMouseListener(controllerRetangulo);
+		meuJPanel.removeMouseMotionListener(controllerRetangulo);
+		
+		controllerPlotarRetaBresenham = null;
+		controllerPlotarRetaDDA = null;
+		controllerRetangulo = null;
 		
 	}
 
