@@ -8,9 +8,26 @@ public class Circunferencia extends  AbstractFigura {
 	int raio;
 	
 	
+	public Circunferencia(Ponto p1, Ponto p2) {
+		setOrigemERaio(p1,p2);
+	}
 	public Circunferencia(Ponto origem,int raio) {
 		this.origem = origem;
 		this.raio = raio;
+	}
+	
+	public void setOrigemERaio(Ponto p1,Ponto p2) {
+		
+		int xc = p1.getX(), yc = p1.getY();
+		int x = p2.getX(), y = p2.getY();
+		
+		//Calculando o ponto do meio para calcular o raio
+		xc = (xc + x)/2;
+		yc = (yc + y)/2;
+		
+		origem = new Ponto(xc,yc);
+		this.raio = (int) Math.sqrt( Math.pow(x - xc,2) + Math.pow(y - yc,2) ) ;
+		
 	}
 	
 	@Override

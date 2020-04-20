@@ -1,10 +1,10 @@
 package controller;
 
-import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import model.AbstractFigura;
+import model.Circunferencia;
 import model.Ponto;
 import model.RetaBresenham;
 import model.RetaDDA;
@@ -56,6 +56,8 @@ public class ControllerRetaBresenham extends ControllerPlotar {
 					figura = new RetaDDA(p1,p2);
 				else if(nomeClass.equals("retangulo"))
 					figura = new Retangulo(p1,p2);
+				else
+					figura = new Circunferencia(p1,p2);
 					
 			
 			figuras.add(figura);
@@ -75,6 +77,17 @@ public class ControllerRetaBresenham extends ControllerPlotar {
 		{
 			repintarTela();
 			fimReta=true;
+			
+			if(nomeClass.equals("bresenham"))
+				figura = new RetaBresenham(new Ponto(e.getX(),e.getY()),p1);
+			else
+				if(nomeClass.equals("dda"))
+					figura = new RetaDDA(new Ponto(e.getX(),e.getY()),p1);
+				else if(nomeClass.equals("retangulo"))
+					figura = new Retangulo(new Ponto(e.getX(),e.getY()),p1);
+				else
+					figura = new Circunferencia(new Ponto(e.getX(),e.getY()),p1); 
+			figura.torneSeVisivel(jpanel.getGraphics());
 //			Graphics g = jpanel.getGraphics();
 //			g.drawLine(e.getX(),e.getY(), p1.getX(), p1.getY());
 			

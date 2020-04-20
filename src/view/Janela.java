@@ -3,16 +3,12 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import controller.ControllerCircunferencia;
-import controller.ControllerPlotar;
 import controller.ControllerRetaBresenham;
 import model.AbstractFigura;
 import javax.swing.JMenuBar;
@@ -33,7 +29,7 @@ public class Janela extends JFrame {
 	ControllerRetaBresenham controllerPlotarRetaBresenham;
 	ControllerRetaBresenham controllerPlotarRetaDDA;
 	ControllerRetaBresenham controllerRetangulo;
-	
+	ControllerRetaBresenham controllerPlotarCircunferencia;
 
 
 	/**
@@ -72,13 +68,15 @@ public class Janela extends JFrame {
 		
 //		meuJPanel.add(menuBar);
 		
-//		btnCircunferencia.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				ControllerPlotar controllerPlotarCirc = new ControllerCircunferencia(meuJPanel,figuras);
-//				cntForm.addMouseListener(controllerPlotarCirc);
-//				cntForm.addMouseMotionListener(controllerPlotarCirc);
-//			}
-//		});
+		btnCircunferencia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				removeAllListener();
+				controllerPlotarCircunferencia = new ControllerRetaBresenham(meuJPanel,figuras);
+				controllerPlotarCircunferencia.setNomeClass("circunferencia");
+				meuJPanel.addMouseListener(controllerPlotarCircunferencia);
+				meuJPanel.addMouseMotionListener(controllerPlotarCircunferencia);
+			}
+		});
 		
         
 		
@@ -113,15 +111,23 @@ public class Janela extends JFrame {
 		
 		meuJPanel.removeMouseListener(controllerPlotarRetaBresenham);
 		meuJPanel.removeMouseMotionListener(controllerPlotarRetaBresenham);
+		
 		meuJPanel.removeMouseListener(controllerPlotarRetaDDA);
 		meuJPanel.removeMouseMotionListener(controllerPlotarRetaDDA);
 		
 		meuJPanel.removeMouseListener(controllerRetangulo);
 		meuJPanel.removeMouseMotionListener(controllerRetangulo);
 		
+		meuJPanel.removeMouseListener(controllerPlotarCircunferencia);
+		meuJPanel.removeMouseMotionListener(controllerPlotarCircunferencia);
+		
+		meuJPanel.removeMouseListener(controllerPlotarCircunferencia);
+		meuJPanel.removeMouseMotionListener(controllerPlotarCircunferencia);
+		
 		controllerPlotarRetaBresenham = null;
 		controllerPlotarRetaDDA = null;
 		controllerRetangulo = null;
+		controllerPlotarCircunferencia = null;
 		
 	}
 
@@ -139,24 +145,24 @@ public class Janela extends JFrame {
 			meuJPanel.getGraphics().setColor(Color.BLACK);
 			meuJPanel.getGraphics().drawLine(x, y, x, y);
 		}
-		public void paintT(Graphics g) {
-	        for (int i=0; i<figuras.size(); i++)
-	            figuras.get(i).torneSeVisivel(g);
-	    }
-		
-		@SuppressWarnings("deprecation")
-		public void repintarTela(int x) {
-
-	        try{
-	            Thread.sleep(x);                 //1000 milliseconds is one second.
-	        } catch(InterruptedException ex) {
-	            Thread.currentThread().interrupt();
-	        }
-	        
-
-	        meuJPanel.resize(meuJPanel.getHeight()+1, meuJPanel.getWidth()+1);
-	        meuJPanel.resize(meuJPanel.getHeight()-1, meuJPanel.getWidth()-1);
-		}
-		
+//		public void paintT(Graphics g) {
+//	        for (int i=0; i<figuras.size(); i++)
+//	            figuras.get(i).torneSeVisivel(g);
+//	    }
+//		
+//		@SuppressWarnings("deprecation")
+//		public void repintarTela(int x) {
+//
+//	        try{
+//	            Thread.sleep(x);                 //1000 milliseconds is one second.
+//	        } catch(InterruptedException ex) {
+//	            Thread.currentThread().interrupt();
+//	        }
+//	        
+//
+//	        meuJPanel.resize(meuJPanel.getHeight()+1, meuJPanel.getWidth()+1);
+//	        meuJPanel.resize(meuJPanel.getHeight()-1, meuJPanel.getWidth()-1);
+//		}
+//		
 	}
 }
